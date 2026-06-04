@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: bumblebee-backend
+    name: bumblebee-agent-api
     runtime: node
     plan: free
     buildCommand: npm install
