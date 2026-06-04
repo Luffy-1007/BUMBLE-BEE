@@ -31,6 +31,9 @@ const state = {
   history: []
 }
 
+const API_BASE = String(window.BUMBLEBEE_API_BASE || '').replace(/\/$/, '')
+const apiUrl = (path) => `${API_BASE}${path}`
+
 const languageProfiles = {
   'en-US': {
     listening: 'Listening...',
@@ -156,7 +159,7 @@ async function confirmDangerousCommand(text) {
   const command = state.pendingConfirmation
   state.pendingConfirmation = null
   try {
-    const response = await fetch('/api/confirm', {
+    const response = await fetch(apiUrl('/api/confirm'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ phrase, command })
@@ -174,7 +177,7 @@ async function confirmDangerousCommand(text) {
 
 async function refreshSystem() {
   try {
-    const response = await fetch('/api/system')
+    const response = await fetch(apiUrl('/api/system'))
     if (!response.ok) throw new Error('System endpoint failed')
     const system = await response.json()
     statusEl.textContent = 'Backend connected'
@@ -224,7 +227,7 @@ async function runCommand(text = inputEl.value) {
   inputEl.value = trimmed
   replyEl.textContent = getCopy('working')
   try {
-    const response = await fetch('/api/command', {
+    const response = await fetch(apiUrl('/api/command'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ text: trimmed })

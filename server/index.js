@@ -262,7 +262,12 @@ async function readJson(req) {
 }
 
 function sendJson(res, status, body) {
-  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' })
+  res.writeHead(status, {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  })
   res.end(JSON.stringify(body))
 }
 
@@ -287,6 +292,19 @@ async function serveStatic(req, res) {
 
 const server = http.createServer(async (req, res) => {
   try {
+    if (req.method === 'OPTIONS') {
+      res.writeHead(204, {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      })
+      res.end()
+      return
+    }
+    if (req.url === '/healthz' && req.method === 'GET') {
+      sendJson(res, 200, { ok: true })
+      return
+    }
     if (req.url === '/api/health' && req.method === 'GET') {
       sendJson(res, 200, { ok: true, platform: process.platform, home: os.homedir() })
       return
