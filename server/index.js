@@ -5,7 +5,8 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { execFile, spawn } from 'node:child_process'
 
-const PORT = process.env.BUMBLEBEE_PORT || 8787
+const PORT = process.env.PORT || process.env.BUMBLEBEE_PORT || 8787
+const HOST = process.env.HOST || '0.0.0.0'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const publicDir = path.resolve(__dirname, '..', 'public')
 
@@ -310,6 +311,6 @@ const server = http.createServer(async (req, res) => {
   }
 })
 
-server.listen(PORT, '127.0.0.1', () => {
-  console.log(`Bumblebee backend running on http://127.0.0.1:${PORT}`)
+server.listen(PORT, HOST, () => {
+  console.log(`Bumblebee backend running on http://${HOST}:${PORT}`)
 })
