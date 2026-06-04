@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bumblebee Agent</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <section class="command-surface">
+        <header class="topbar">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">B</span>
+            <div>
+              <strong>Bumblebee Agent</strong>
+              <span>Local AI operating assistant</span>
+            </div>
+          </div>
+          <div class="status-pill">
+            <span class="dot"></span>
+            <span id="backendStatus">Checking backend</span>
+          </div>
+        </header>
+
+        <div class="hero-card">
+          <div class="console-panel">
+            <div class="panel-title">
+              <span class="icon">AI</span>
+              <h1>Interactive Voice</h1>
+            </div>
+            <p class="reply" id="reply">Online. Ask me to open apps, search files, create folders, or show system status.</p>
+
+            <form class="command-row" id="commandForm">
+              <input id="commandInput" autocomplete="off" placeholder="Open Chrome, find PDFs, create folder AI Project..." />
+              <select class="language-select" id="languageSelect" title="Voice language" aria-label="Voice language">
+                <option value="en-US">EN</option>
+                <option value="en-IN">EN-IN</option>
+                <option value="hi-IN">HI</option>
+                <option value="ta-IN">TA</option>
+                <option value="es-ES">ES</option>
+              </select>
+              <button class="icon-button primary" type="submit" title="Run command" aria-label="Run command">
+                <span aria-hidden="true">Run</span>
+              </button>
+              <button class="icon-button mic-button" id="listenButton" type="button" title="Start listening" aria-label="Start listening">
+                <span class="mic-icon" aria-hidden="true"></span>
+              </button>
+            </form>
+            <div class="suggestion-strip" id="suggestionStrip" aria-label="Suggested commands"></div>
+
+            <div class="quick-grid" id="quickGrid"></div>
+          </div>
+
+          <div class="avatar-stage" id="avatarCore" aria-label="Interactive 3D robot voice avatar">
+            <spline-viewer
+              class="spline-scene"
+              loading-anim-type="spinner-small-dark"
+              url="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+            ></spline-viewer>
+          </div>
+        </div>
+      </section>
+
+      <section class="dashboard">
+        <div class="module-grid">
+          <article class="module yellow"><span>Voice</span><strong>Assistant</strong></article>
+          <article class="module teal"><span>Local</span><strong>Actions</strong></article>
+          <article class="module green"><span>File</span><strong>Search</strong></article>
+          <article class="module blue"><span>Browser</span><strong>Control</strong></article>
+          <article class="module violet"><span>AI</span><strong>Memory</strong></article>
+          <article class="module red"><span>Safety</span><strong>Layer</strong></article>
+        </div>
+
+        <div class="detail-grid">
+          <section class="system-panel">
+            <div class="section-heading"><span class="icon">SYS</span><h2>System Monitor</h2></div>
+            <div class="metrics" id="metrics">
+              <div><strong>...</strong><span>CPU threads</span></div>
+              <div><strong>...</strong><span>memory used</span></div>
+              <div><strong>...</strong><span>uptime</span></div>
+            </div>
+          </section>
+
+          <section class="activity-panel">
+            <div class="section-heading"><span class="icon">LOG</span><h2>Agent Actions</h2></div>
+            <div class="history-list" id="historyList">
+              <p class="muted">Completed actions will appear here.</p>
+            </div>
+          </section>
+
+          <section class="voice-panel">
+            <div class="section-heading"><span class="icon">TTS</span><h2>Voice Engine</h2></div>
+            <div class="wave" aria-hidden="true"></div>
+            <p class="muted">Browser speech input and local speech output are enabled when your browser supports them.</p>
+          </section>
+
+          <section class="settings-panel">
+            <div class="section-heading"><span class="icon">SAFE</span><h2>Safety</h2></div>
+            <p class="muted">Dangerous system commands require an exact YES confirmation through the backend before execution.</p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
